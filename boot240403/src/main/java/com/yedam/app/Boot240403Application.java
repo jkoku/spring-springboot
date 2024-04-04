@@ -1,4 +1,4 @@
-package com.example.app;
+package com.yedam.app;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
