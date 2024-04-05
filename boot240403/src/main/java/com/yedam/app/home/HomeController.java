@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,13 +28,15 @@ public class HomeController {
 	// Method는 상관없음
 	// Content-type : application/x-www-form-urlencoded
 	@RequestMapping(path="comobj", method= {RequestMethod.GET, RequestMethod.POST}) //기본은 리퀘스트매핑
-	@ResponseBody  
-	public String commandObject(EmpVO empVO) {
+	//@ResponseBody  // 페이지를 찾지않고 지금 리턴하고 있는걸 바디에 쓴다. 
+	public String commandObject(@ModelAttribute("emp") EmpVO empVO ) { // 데이터 담으려면 Model model 이 선언되어야햐ㅏㄴ다.. 아니면 모델어트리븉@!
 		log.info("path : /comobj");
 		log.info("= employee_id : " + empVO.getEmployeeId());
 		log.info("= last_name : " + empVO.getLastName());
 		log.info(empVO.toString());
-		return "";
+		return "home"; // return "emp/home"; 
+		// classpath:/templates/ emp/home .html
+		
 	}
 	
 	// 개별개별 받는 방식
