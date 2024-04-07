@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.app.dep.service.DepVO;
 import com.yedam.app.emp.service.EmpVO;
 
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin
-@Slf4j 
-@Controller
+@CrossOrigin 	//크로스 도메인 요청을 허용하기 위한 어노테이션
+@Slf4j 			//롬복(Lombok)을 사용하여 로깅을 위한 Logger 객체를 생성
+@Controller		//스프링 컨텍스트에 이 클래스가 컨트롤러
 public class HomeController {
 	
 	
@@ -70,6 +71,19 @@ public class HomeController {
 		 map.put("path", "resbody");
 		 map.put("data", empVO);
 		return map;
+	}
+	
+	
+	@RequestMapping(path="comobj", method= {RequestMethod.GET, RequestMethod.POST}) //기본은 리퀘스트매핑
+	//@ResponseBody  // 페이지를 찾지않고 지금 리턴하고 있는걸 바디에 쓴다. 
+	public String commandObject(@ModelAttribute("dep") DepVO depVO ) { // 데이터 담으려면 Model model 이 선언되어야햐ㅏㄴ다.. 아니면 모델어트리븉@!
+		log.info("path : /comobj");
+		log.info("= department_id : " + depVO.getDepartmentId());
+		log.info("= department_name : " + depVO.getDepartmentName());
+		log.info(depVO.toString());
+		return "home"; // return "emp/home"; 
+		// classpath:/templates/ emp/home .html
+		
 	}
 }
 
