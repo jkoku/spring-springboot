@@ -1,26 +1,22 @@
 package com.yedam.app;
 
+import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.yedam.app.aop.service.AaaService;
 
 @SpringBootTest
 class Boot240417ApplicationTests {
-
+	/*
+	  @Test void contextLoads() { }
+	  
+	  @Autowired AaaService aaaService;
+	 
+	
 	@Test
-	void contextLoads() {
+	public void aopTest() {
+		aaaService.insert();
 	}
-	@Autowired
-	AaaService aaaService;
-	
-	
-//	@Test
-//	public void aopTest() {
-//		aaaService.insert();
-//	}
 	
 	@Autowired
 	PasswordEncoder passwordEncoder; // 단방향 : 복구가 불가능한 형태의 암호 . 
@@ -36,6 +32,25 @@ class Boot240417ApplicationTests {
 		boolean matchResult = passwordEncoder.matches(password, enPwd); // 순서바뀌면안됨. 
 											// 첫번째 매개변수가 원래데이터, 두번째 매개변수가 암호화된값 두개 비교.	// 로그인할때 사용. 
 		System.out.println("matchResult : " + matchResult);
+	}
+	*/
+	
+	@Autowired
+	StringEncryptor jasyptStringEncryptor; // 암호화작업에 대한 부분 적용.
+	
+	@Test
+	public void encryption() { 
+		String[] strs = {
+				"net.sf.log4jdbc.sql.jdbcapi.DriverSpy",
+				"jdbc:log4jdbc:oracle:thin:@127.0.0.1:1521:xe",
+				"hr",
+				"hr" 
+		};
+		
+	for(String str : strs) {
+		String encStr = jasyptStringEncryptor.encrypt(str);
+				System.out.println(encStr);
+		}
 	}
 	
 }
